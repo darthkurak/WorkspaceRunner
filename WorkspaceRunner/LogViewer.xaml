@@ -1,0 +1,21 @@
+﻿<Window x:Class="WorkspaceRunner.LogViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorkspaceRunner"
+        mc:Ignorable="d"
+        Title="Log Viewer" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="0,0,-0.4,0">
+            <TextBlock Text="{Binding Title}" Margin="10,0,0,0"/>
+            <TextBlock Text="Was success: " Margin="10,0,0,0"/>
+            <TextBlock Text="{Binding WasSuccess}" Margin="10,0,0,0"/>
+        </StackPanel>
+        <TextBox Text="{Binding Log}" IsReadOnly="True" TextWrapping="Wrap" Margin="10,10,9.6,10" Grid.Row="1" VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+</Window>

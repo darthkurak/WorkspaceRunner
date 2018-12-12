@@ -43,13 +43,13 @@ namespace WorkspaceRunner.ViewModel
             get { return Settings.Default.ProcessStatus; }
             set
             {
-                if (Settings.Default.ProcessStatus == value)
-                    return;
-
                 if (value == ProcessStatus.Running)
-                    SetThreadExecutionState(ES_SYSTEM_REQUIRED);
+                    SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED);
                 else if (value == ProcessStatus.Stopped)
                     SetThreadExecutionState(ES_CONTINUOUS);
+
+                if (Settings.Default.ProcessStatus == value)
+                    return;
 
                 Settings.Default.ProcessStatus = value;
                 
@@ -145,6 +145,7 @@ namespace WorkspaceRunner.ViewModel
                 timer.Interval = 2000;
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
+                Status = Settings.Default.ProcessStatus;
             }
         }
 
@@ -335,7 +336,7 @@ namespace WorkspaceRunner.ViewModel
             if (Status == ProcessStatus.Running)
             {
                 Status = ProcessStatus.Stopping;
-                LastStopScriptExecutionStatus = RunScript(Settings.Default.StartScriptPath);
+                LastStopScriptExecutionStatus = RunScript(Settings.Default.StopScriptPath);
                 if (LastStopScriptExecutionStatus.WasSuccess)
                 {
                     Status = ProcessStatus.Stopped;
